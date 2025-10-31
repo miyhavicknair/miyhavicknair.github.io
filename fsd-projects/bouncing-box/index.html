@@ -8,7 +8,7 @@
       .box {
         width: 70px;
         height: 70px;
-        background-color: teal;
+        background-color: rgb(255, 84, 181);
         font-size: 300%;
         text-align: center;
         user-select: none;
@@ -21,7 +21,6 @@
 
       .board {
         height: 100vh;
-      }
     </style>
     <!-- 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
   </head>
@@ -54,6 +53,7 @@
         // Every time the box is clicked, call the handleBoxClick Function (see below)
         box.on("click", handleBoxClick);
 
+
         // moves the Box to a new position on the screen along the X-Axis
         function moveBoxTo(newPositionX) {
           box.css("left", newPositionX);
@@ -69,22 +69,26 @@
         //////////////////////////////////////////////////////////////////
 
         // TODO 2 - Variable declarations
+  var postitionX = 0;
+  var points = 0;
+  var speed = 10;
 
-
-
-
-
-        /**
+    /**
          * This Function will be called 20 times/second.
          * Each time it is called, it should move the Box to a new location.
          * If the box drifts off the screen, turn it around!
          */
-        function update() {
-
-        
-
-          
+        function update () {
+          postitionX = postitionX + speed;
+      moveBoxTo(postitionX);
+      if (postitionX > boardWidth) {
+        speed *= -1;
+     }
+      if (postitionX < 0) {
+        speed *= -1;
         }
+
+      }
 
         /**
          * This Function will be called each time the box is clicked.
@@ -94,6 +98,10 @@
          * - move the box to the left side of the screen.
          */
         function handleBoxClick() {
+          postitionX = 0
+          points++;
+          changeBoxText(points);
+          speed = 3 * points + 10;
 
 
 
